@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ExpenseDatePicker extends StatelessWidget {
   final DateTime date;
@@ -11,7 +12,7 @@ class ExpenseDatePicker extends StatelessWidget {
       context: context,
       initialDate: date,
       firstDate: DateTime(2020),
-      lastDate: DateTime(2100),
+      lastDate: DateTime.now(),
     );
     if (picked != null && picked != date) {
       onDatePicked(picked);
@@ -20,6 +21,7 @@ class ExpenseDatePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dateFormat = DateFormat('dd.MM.yyyy');
     return GestureDetector(
       onTap: () => _pickDate(context),
       child: Container(
@@ -31,7 +33,7 @@ class ExpenseDatePicker extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Дата: ${date.toLocal().toString().split(" ")[0]}'),
+            Text('Дата: ${dateFormat.format(date)}'),
             Icon(Icons.calendar_today, color: Colors.grey[600]),
           ],
         ),

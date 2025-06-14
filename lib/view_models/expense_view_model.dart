@@ -48,10 +48,14 @@ class ExpenseViewModel extends ChangeNotifier {
   }
 
   double _calculateTotal({required int forDays}) {
-    final cutoff = DateTime.now().subtract(Duration(days: forDays));
+    final now = DateTime.now();
+    final cutoff = now.subtract(Duration(days: forDays - 1)); // сдвиг на день меньше
+
     return _expenses
-        .where((e) => e.date.isAfter(cutoff))
-        .fold(0.0, (sum, e) => sum + e.amount);
+        .where((expense) =>
+    !expense.date.isBefore(DateTime(cutoff.year, cutoff.month, cutoff.day)) &&
+        !expense.date.isAfter(DateTime(now.year, now.month, now.day, 23, 59, 59)))
+        .fold(0.0, (sum, expense) => sum + expense.amount);
   }
 
   List<Expense> getFilteredExpenses(DateTimeRange range) {
