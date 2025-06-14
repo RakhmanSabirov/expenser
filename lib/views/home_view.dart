@@ -65,6 +65,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
+              spacing: 8,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 TotalTile(

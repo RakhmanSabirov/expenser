@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../models/expense_model.dart';
@@ -50,6 +51,7 @@ class ChartView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dateFormat = DateFormat('dd.MM.yyyy');
     final allExpenses = Provider.of<ExpenseViewModel>(context).expenses;
 
     final expenses = filterRange != null
@@ -87,7 +89,7 @@ class ChartView extends StatelessWidget {
           children: [
             Text(
               filterRange != null
-                  ? 'Диаграмма расходов: ${filterRange!.start.toLocal().toString().split(" ")[0]} - ${filterRange!.end.toLocal().toString().split(" ")[0]}'
+                  ? 'Диаграмма расходов: ${dateFormat.format(filterRange!.start)} - ${dateFormat.format(filterRange!.end)}'
                   : 'Диаграмма расходов ${_getPeriodTitle(period)}',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),

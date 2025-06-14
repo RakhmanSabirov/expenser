@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../models/expense_model.dart';
 import '../view_models/expense_view_model.dart';
-import '../widgets/expense_text_field.dart';
-import '../widgets/expense_dropdown.dart';
-import '../widgets/expense_date_picker.dart';
+import '../widgets/export.dart';
+
 
 class NewExpenseView extends StatefulWidget {
   const NewExpenseView({super.key});
@@ -45,6 +45,9 @@ class _NewExpenseViewState extends State<NewExpenseView> {
                 children: [
                   ExpenseTextField(
                     hint: 'Сумма',
+                    formatter: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
                     inputType: TextInputType.number,
                     validator: (val) =>
                         val == null || val.isEmpty ? 'Введите сумму' : null,
